@@ -7,7 +7,7 @@ import {
     ViewChild,
     ViewEncapsulation,
 } from '@angular/core';
-import { requireContent } from '../../utils/utils';
+import { requireContent, hasChildren } from '../../utils/utils';
 
 /**
  * [EmptyState Component](https://brightlayer-ui-components.github.io/angular/?path=/info/components-empty-state--readme)
@@ -34,8 +34,13 @@ export class EmptyStateComponent implements AfterViewInit {
     /** Used to check if an icon has been provided ngAfterViewInit */
     @ViewChild('emptyIcon') emptyIcon: ElementRef;
 
+    @ViewChild('descriptionRef') descriptionRef: ElementRef;
+    hasDescription = false;
+
     ngAfterViewInit(): void {
         const required = { selector: 'emptyIcon', ref: this.emptyIcon };
         requireContent([required], this);
+
+        this.hasDescription = hasChildren(this.descriptionRef) ? true : false;
     }
 }
